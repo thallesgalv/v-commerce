@@ -119,7 +119,10 @@ export function CartProvider({ children }: CartProviderProps) {
       return
     }
 
-    if (!isValidQuantity) return
+    if (!isValidQuantity) {
+      handleError('Quantidade inválida')
+      return
+    }
 
     const { id } = product
 
