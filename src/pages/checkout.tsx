@@ -3,6 +3,7 @@ import { BaseContainer } from '@/components/Base/BaseContainer'
 import { BaseModal } from '@/components/Base/BaseModal'
 import { CartItemComponent } from '@/components/CartItem/CartItemComponent'
 import { useCartContext } from '@/contexts/CartContext'
+import { formatCurrency } from '@/utils/formatCurrency'
 import { EmptyCartView } from '@/views/EmptyCartView'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -46,6 +47,18 @@ export default function Checkout() {
               </li>
             ))}
           </ul>
+          <p className="mt-2 flex justify-end gap-2">
+            Total:{' '}
+            <strong>
+              {' '}
+              {formatCurrency(
+                cart?.reduce(
+                  (acc, { quantity, price }) => acc + quantity * price,
+                  0
+                )
+              )}
+            </strong>
+          </p>
           <div className="mt-4 flex flex-col justify-end gap-2 sm:flex-row">
             <BaseButton
               variant="secondary"
