@@ -51,18 +51,29 @@ export function CartProvider({ children }: CartProviderProps) {
   }
 
   function addToCart(product: Product, quantity: number | string) {
-    const parsedQuantity = Number(quantity)
-    const isValidQuantity =
-      Number.isInteger(parsedQuantity) &&
-      parsedQuantity > 0 &&
-      parsedQuantity <= product.stock
-
-    if (!isValidQuantity) handleError('Quantidade inválida')
-
     const { id, title } = product
     const updatedCart = [...cart]
 
     const cartItemIndex = findCartItemIndexById(id, updatedCart)
+    const currentProductQuantityInCart =
+      updatedCart[cartItemIndex]?.quantity || 0
+
+    const parsedQuantity = Number(quantity)
+    const isValidQuantity =
+      Number.isInteger(parsedQuantity) &&
+      parsedQuantity > 0 &&
+      parsedQuantity + currentProductQuantityInCart <= product.stock
+
+    if (currentProductQuantityInCart + parsedQuantity > product.stock) {
+      handleError('Quantidade maior do que o estoque disponível')
+      return
+    }
+
+    if (!isValidQuantity) {
+      handleError('Quantidade inválida')
+      return
+    }
+
     const productIsInCart = cartItemIndex >= 0
 
     if (productIsInCart) {
@@ -81,7 +92,10 @@ export function CartProvider({ children }: CartProviderProps) {
     const cartItemIndex = findCartItemIndexById(productId, updatedCart)
     const productIsInCart = cartItemIndex >= 0
 
-    if (!productIsInCart) handleError('Produto não está no carrinho')
+    if (!productIsInCart) {
+      handleError('Produto não está no carrinho')
+      return
+    }
 
     updatedCart.splice(cartItemIndex, 1)
 
@@ -100,8 +114,10 @@ export function CartProvider({ children }: CartProviderProps) {
       parsedQuantity > 0 &&
       parsedQuantity <= product.stock
 
-    if (parsedQuantity >= product.stock)
+    if (parsedQuantity > product.stock) {
       handleError('Quantidade maior do que o estoque disponível')
+      return
+    }
 
     if (!isValidQuantity) return
 
@@ -111,7 +127,10 @@ export function CartProvider({ children }: CartProviderProps) {
     const cartItemIndex = findCartItemIndexById(id, updatedCart)
     const productIsInCart = cartItemIndex >= 0
 
-    if (!productIsInCart) handleError('Produto não está no carrinho')
+    if (!productIsInCart) {
+      handleError('Produto não está no carrinho')
+      return
+    }
 
     updatedCart[cartItemIndex].quantity = parsedQuantity
 
