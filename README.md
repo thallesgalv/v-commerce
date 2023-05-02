@@ -1,3 +1,14 @@
+Link vercel para aplicação hospedada: https://v-commerce-visie.vercel.app/
+
+# Comandos:
+
+-   `pnpm install`  - Instala as dependências do projeto
+-   `pnpm run dev`  - Inicia projeto em modo de desenvolvimento
+-   `pnpm run build`  - Faz o build da aplicação para produção
+-   `pnpm run start`  - Incicia o servidor de produção do projeto
+-   `pnpm run lint`  - Realiza lint 
+
+
 # Stack utilizada:
 
 - React / Next.js /Typescript: Diversos motivos motivaram a escolha do Next.js: utilização de SSR para obter produtos faz todo sentido em um e-commerce (SEO é importante), sistema de rotas out of the box, recomendação da utilização na própria documentação oficial do React ao invés do CreateReactApp;
