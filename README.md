@@ -1,38 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Stack utilizada:
 
-## Getting Started
+- React / Next.js /Typescript: Diversos motivos motivaram a escolha do Next.js: utilização de SSR para obter produtos faz todo sentido em um e-commerce (SEO é importante), sistema de rotas out of the box, recomendação da utilização na própria documentação oficial do React ao invés do CreateReactApp;
+- TailwindCSS: para estilização rápida e produtiva;
+- Axios: para requisições HTTP;
+- ESlint + Prettier: para linting e padronização do código;
+- React Hot Toast: para utilização de toasts;
+- Iconify: biblioteca de ícones;
+- NProgress: biblioteca para barra de carregamento de uma página
 
-First, run the development server:
+# Desafio:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+A entrega deve ser feita através do Github.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Este teste de React é basicamente a criação de um e-commerce bastante simplificado.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Os dados devem ser obtidos através da API do DummyJSON. A documentação está disponível em "https://dummyjson.com/docs/products", e nela temos todos os endpoints necessários.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+A aplicação deve ser composta por 3 telas. A seguir, você tem a descrição destas telas, seus requisitos e o tópico "diferencial(ais)", onde destacamos implementações não-obrigatórios que podem agregar pontos à sua entrega.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Sugestão: atente-se à tarefa de atender os requisitos básicos do teste. O básico bem feito será uma ótima entrega. Após esta entrega, caso queira, você pode implementar algum diferencial atualizando o conteúdo do repositório.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## (1) Tela "índice": listagem de produtos
 
-## Learn More
+Página que lista os produtos da loja, onde cada produto terá seu conjunto de botões de ação. Nesta página temos de ter um link para acesso à página/rota "carrinho de compras".
 
-To learn more about Next.js, take a look at the following resources:
+- Cada card de produto deve exibir: nome, preço "cheio" (exibir tachado), porcentagem de desconto e valor com desconto aplicado (com destaque), marca, "rating" e quantidade em estoque.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- A quantidade de produtos exibidos na listagem fica a critério do candidato.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Cada produto deve também disponibilizar botões de ação:
+  - ver mais: leva o usuário à página/rota "produto selecionado";
+  - adicionar ao carrinho: adiciona o produto ao carrinho (quantidade = 1);
+  - favoritar: favorita produto (a interface deve indicar que o produto foi favoritado, seja por texto ou ícone).
 
-## Deploy on Vercel
+**Diferenciais**: carrossel exibindo alguns dos produtos; paginação; separação de produtos por categorias; caixa de busca.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## (2) Tela "produto selecionado": dados completo sobre o produto selecionado
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Página que exibe todos os dados existentes do produto, inclusive imagens.
+
+- A página deve ter um link "voltar", para o usuário retornar à página/rota "listagem de produtos".
+
+- O produto deve ter os botões de ação:
+  - adicionar ao carrinho: adiciona o produto ao carrinho (disponibilizar campo "quantidade" ao usuário);
+  - favoritar: favorita produto (a interface deve indicar que o produto foi favoritado, seja por texto ou ícone).
+
+**Diferencial**: carrossel exibindo as imagens do produto.
+
+## (3) Tela "carrinho de compras": listagem dos produtos adicionados ao carrinho
+
+Página que exibe os produtos adicionados ao carrinho de compras.
+
+- Na página devemos ter o botão de ação "limpar carrinho", o qual exclui todos os itens do carrinho de compras (o usuário deve ser questionado se tem certeza sobre a ação).
+
+- Cada produto deve ter os botões de ação:
+  - atualizar quantidade: cada produto deve ter um campo para atualizar quantidade. O usuário deve ser alertado sobre a atualização da quantidade;
+  - excluir: exclui produto do carrinho (usuário deve ser questionado se tem certeza sobre a ação).
+
+## INSTRUÇÕES JAVASCRIPT
+
+Pode-se utilizar "micro-frameworks" react, como o "Toastify", "React Rating", por exemplo. É altamente desejável o uso de Typescript.
+
+Para alguns recursos, haverá a necessidade de armazenar dados (como dados para o carrinho e o recurso de favoritar produtos). Não é necessária a persistência de dados, podendo-se perder os dados na atualização da página. Caso opte-se pela persistência, pode-se usar localStorage / sessionStorage.
